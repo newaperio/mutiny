@@ -1,0 +1,30 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    env:
+      MIX_ENV: "test"
+    strategy:
+      matrix:
+        elixir: ["1.10.2", "1.9.4"]
+        include:
+          - elixir: "1.10.2"
+            otp: "22.2.8"
+          - elixir: "1.9.4"
+            otp: "22.2.8"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-elixir@v1
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+      - name: Install Dependencies
+        run: mix deps.get
+      - name: Compile app
+        run: mix compile --force --warnings-as-errors
+      - run: mix test
+      - run: mix format --check-formatted
