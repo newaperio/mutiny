@@ -10,8 +10,10 @@ jobs:
       MIX_ENV: "test"
     strategy:
       matrix:
-        elixir: ["1.10.2", "1.9.4"]
+        elixir: ["1.11.2", "1.10.2", "1.9.4"]
         include:
+          - elixir: "1.11.2"
+            otp: "22.2.8"
           - elixir: "1.10.2"
             otp: "22.2.8"
           - elixir: "1.9.4"
