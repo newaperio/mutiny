@@ -2,6 +2,7 @@ defmodule Mutiny.MixProject do
   use Mix.Project
 
   @version "0.1.0"
+  @repo_url "https://github.com/newaperio/mutiny"
 
   def project do
     [
@@ -30,7 +31,10 @@ defmodule Mutiny.MixProject do
       description: "Simple database immutability",
       maintainers: ["N. G. Scheurich"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/newaperio/mutiny"}
+      links: %{
+        "GitHub" => @repo_url,
+        "Made by NewAperio" => "https://newaperio.com/"
+      }
     ]
   end
 
