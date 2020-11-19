@@ -81,7 +81,7 @@ terms.
 
 ## License
 
-AssertIdentity is Copyright © 2020 NewAperio. It is free software, and may be
+Mutiny is Copyright © 2020 NewAperio. It is free software, and may be
 redistributed under the terms specified in the [LICENSE][license] file.
 
 ## About NewAperio
