@@ -1,6 +1,9 @@
-<img alt="Mutiny wordmark with red crossed-out circle" src="logo.png" width="400" height="113" />
-
-[![CI badge](https://github.com/newaperio/mutiny/workflows/CI/badge.svg)](https://github.com/newaperio/mutiny/actions?query=workflow%3ACI)
+<p align="center"><img alt="Mutiny wordmark with red crossed-out circle" src="logo.png" width="400" height="113" /></p>
+<p align="center">
+  <a href="https://github.com/newaperio/mutiny/actions?query=workflow%3ACI">
+    <img alt="CI badge" src="https://github.com/newaperio/mutiny/workflows/CI/badge.svg" />
+  </a>
+</p>
 
 ---
 
