@@ -19,7 +19,7 @@ defmodule Mutiny.Adapter do
       :ok
 
   """
-  @callback protect(Ecto.Migration.Table.t()) :: String.t()
+  @callback protect(table :: Ecto.Migration.Table.t()) :: String.t()
 
   @doc """
   Returns a command to create a database trigger that prevents `UPDATE`s to the
@@ -38,7 +38,7 @@ defmodule Mutiny.Adapter do
   * `nullable` - Whether the `columns` can be set to `NULL`; defaults to `false`
 
   """
-  @callback protect(Ecto.Migration.Table.t(), columns(), opts()) :: String.t()
+  @callback protect(table :: Ecto.Migration.Table.t(), columns(), opts()) :: String.t()
 
   @doc """
   Creates a database function that can be triggered to prevent `UPDATE`s to a
