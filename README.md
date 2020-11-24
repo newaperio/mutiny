@@ -9,8 +9,6 @@
 
 # Mutiny
 
-**Simple database immutability**
-
 Need database-level assurance that certain records are immutable—that is to
 say, unable to be `UPDATE`d once `INSERT`ed? Mutiny is glad to oblige.
 
@@ -38,7 +36,7 @@ First off, you'll want to create the database function that Mutiny calls.
 Mutiny can generate a migration for you that will do just that:
 
 ```sh
-mix mutiny.gen.migration
+mix mutiny.gen.migration postgres
 mix ecto.migrate
 ```
 
@@ -46,12 +44,12 @@ If you'd rather write the migration yourself, take a look at
 `Mutiny.create_prevent_update_function/0` and
 `Mutiny.drop_prevent_update_function/0`.
 
-Now you're ready to use Mutiny's `protect` functions in your migrations:
+Now you're ready to `use` Mutiny in your migrations:
 
 ```elixir
 defmodule MyApp.Repo.Migrations.CreateSnapshots do
   use Ecto.Migration
-  import Mutiny
+  use Mutiny, adapter: Mutiny.Adapters.Postgres
 
   def change do
     create table("snapshots") do

@@ -8,10 +8,10 @@ defmodule Mix.Tasks.Mutiny.Gen.Migration do
   function that Mutiny calls.
   """
   @impl true
-  def run(_args) do
+  def run([adapter_opt]) do
+    adapter = get_adapter(adapter_opt)
+    migration_fns = migration_up(adapter) <> "\n\n" <> migration_down(adapter)
     filename = Mix.Task.run("ecto.gen.migration", ["set_up_mutiny"])
-
-    migration_fns = migration_up() <> "\n\n" <> migration_down()
 
     content =
       filename
@@ -21,18 +21,23 @@ defmodule Mix.Tasks.Mutiny.Gen.Migration do
     File.write(filename, content)
   end
 
-  defp migration_up do
+  @spec get_adapter(String.t()) :: atom()
+  defp get_adapter("postgres"), do: Mutiny.Adapters.Postgres
+
+  @spec migration_up(atom()) :: String.t()
+  defp migration_up(adapter) do
     """
     def up do
-        execute "#{Mutiny.create_prevent_update_function()}"
+        execute "#{adapter.create_prevent_update_function()}"
       end
     """
   end
 
-  defp migration_down do
+  @spec migration_down(atom()) :: String.t()
+  defp migration_down(adapter) do
     """
       def down do
-        execute "#{Mutiny.drop_prevent_update_function()}"
+        execute "#{adapter.drop_prevent_update_function()}"
       end
     """
   end

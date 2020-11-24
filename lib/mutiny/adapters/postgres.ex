@@ -3,10 +3,22 @@ defmodule Mutiny.Adapters.Postgres do
   Implements `Mutiny.Adapter` to provide commands for PostgreSQL.
   """
 
+  alias Ecto.Migration.Table
+
   @behaviour Mutiny.Adapter
 
+  @doc """
+  Returns a PostgreSQL command to create a database trigger that prevents
+  `UPDATE`s to the given `Ecto.Migration.Table`.
+
+  ## Examples
+
+      iex> protect(table("users"))
+      "CREATE OR REPLACE TRIGGER prevent_update..."
+
+  """
   @impl true
-  def protect(%Ecto.Migration.Table{name: table}) do
+  def protect(%Table{name: table}) do
     """
     CREATE OR REPLACE TRIGGER prevent_update
     BEFORE UPDATE on #{table}
@@ -14,6 +26,23 @@ defmodule Mutiny.Adapters.Postgres do
     """
   end
 
+  @doc """
+  Returns a PostgreSQL command to create a database trigger that prevents
+  `UPDATE`s to the given `columns` of the `Ecto.Migration.Table`.
+
+  ## Examples
+
+      iex> protect(table("users"), [:uuid, :birthdate])
+      "DO $$..."
+
+      iex> protect(table("users"), [:uuid], nullable: true)
+      "DO $$..."
+
+  ## Options
+
+  * `nullable` - Whether the `columns` can be set to `NULL`; defaults to `false`
+
+  """
   @impl true
   def protect(table, columns, opts \\ [])
 
@@ -23,7 +52,7 @@ defmodule Mutiny.Adapters.Postgres do
   end
 
   @impl true
-  def protect(%Ecto.Migration.Table{name: table}, columns, opts) do
+  def protect(%Table{name: table}, columns, opts) do
     trigger_cols =
       columns
       |> Enum.map(&to_string/1)
@@ -68,6 +97,16 @@ defmodule Mutiny.Adapters.Postgres do
   defp null_check(_col, true), do: ""
   defp null_check(col, false), do: " AND new.#{col} IS NOT NULL"
 
+  @doc """
+  Returns a PostgreSQL function that can be triggered to prevent `UPDATE`s to a
+  database table.
+
+  ## Examples
+
+      iex> create_prevent_update_function()
+      "CREATE OR REPLACE FUNCTION prevent_update()..."
+
+  """
   @impl true
   def create_prevent_update_function do
     """
@@ -80,6 +119,16 @@ defmodule Mutiny.Adapters.Postgres do
     """
   end
 
+  @doc """
+  Returns a PostgreSQL command that drops the function created by
+  `create_prevent_update_function/0`, if it exists.
+
+  ## Examples
+
+      iex> drop_prevent_update_function()
+      "DROP FUNCTION IF EXISTS prevent_update();"
+
+  """
   @impl true
   def drop_prevent_update_function do
     "DROP FUNCTION IF EXISTS prevent_update();"
