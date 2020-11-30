@@ -33,8 +33,14 @@ defmodule Mix.Tasks.Mutiny.Gen.Migration do
     File.write(filename, content)
   end
 
+  def run(_), do: raise_adapter_error()
+
+  @spec raise_adapter_error() :: none()
+  def raise_adapter_error, do: raise(ArgumentError, "must specify a valid database adapter")
+
   @spec get_adapter(String.t()) :: atom()
   defp get_adapter("postgres"), do: Mutiny.Adapters.Postgres
+  defp get_adapter(_), do: raise_adapter_error()
 
   @spec migration_up(atom()) :: String.t()
   defp migration_up(adapter) do
