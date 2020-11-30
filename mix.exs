@@ -9,6 +9,7 @@ defmodule Mutiny.MixProject do
       app: :mutiny,
       version: @version,
       elixir: "~> 1.9",
+      elixirc_paths: ~w(lib test/support),
       deps: deps(),
       package: package(),
       docs: docs()
