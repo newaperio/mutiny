@@ -6,6 +6,18 @@ defmodule Mix.Tasks.Mutiny.Gen.Migration do
   @doc """
   Generates an Ecto migration that can be run in order to create the database
   function that Mutiny calls.
+
+  ## Arguments
+
+  An `adapter` argument corresponding to your database should be specified.
+  Currently, the following arguments are accepted:
+
+  * `postgres`
+
+  ## Examples
+
+      mix mutiny.gen.migration postgres
+
   """
   @impl true
   def run([adapter_opt]) do
