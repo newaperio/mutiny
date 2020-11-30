@@ -42,12 +42,12 @@ defmodule Mutiny.MixProject do
   defp docs do
     [
       name: "Mutiny",
-      main: "readme",
+      main: "getting-started",
       logo: "mark.png",
       source_ref: "v#{@version}",
       canonical: "https://hexdocs.pm/mutiny",
       source_url: "https://github.com/newaperio/mutiny",
-      extras: ["README.md"]
+      extras: ["guides/getting-started.md"]
     ]
   end
 end
