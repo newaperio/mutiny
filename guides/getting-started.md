@@ -92,3 +92,14 @@ protect(my_table, :data, nullable: true)
 [full documentation]: https://hexdocs.pm/mutiny/api-reference.html
 [Ecto]: https://github.com/elixir-ecto/ecto
 [PostgreSQL]: https://www.postgresql.org/
+
+## About NewAperio
+
+Mutiny is built by NewAperio, LLC.
+
+NewAperio is a web and mobile design and development studio. We offer [expert
+Elixir and Phoenix][services] development as part of our portfolio of services.
+[Get in touch][contact] to see how our team can help you.
+
+[services]: https://newaperio.com/services#elixir?utm_source=github
+[contact]: https://newaperio.com/contact?utm_source=github
